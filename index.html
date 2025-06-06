@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Will You Marry Me?</title>
+  <style>
+    :root {
+      --pink: #ff4da6;
+      --light-pink: #ffe6f0;
+      --white: #ffffff;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle, var(--light-pink), var(--white));
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      animation: fadeInBody 2s ease-in-out;
+    }
+    @keyframes fadeInBody {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    h1 {
+      font-size: 3em;
+      color: var(--pink);
+      animation: dropIn 1s ease forwards;
+      transform: translateY(-50px);
+      opacity: 0;
+      text-shadow: 0 0 10px var(--pink);
+    }
+    @keyframes dropIn {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    #typing {
+      margin-top: 20px;
+      font-size: 1.4em;
+      color: #333;
+      height: 40px;
+    }
+    .button-container {
+      margin-top: 30px;
+      display: flex;
+      gap: 20px;
+      animation: fadeInButtons 2s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadeInButtons {
+      to {
+        opacity: 1;
+      }
+    }
+    button {
+      padding: 15px 35px;
+      font-size: 1.3em;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      box-shadow: 0 0 8px rgba(255,77,166, 0.7);
+      background: var(--pink);
+      color: white;
+    }
+    #noBtn {
+      background: #ccc;
+      color: #444;
+      box-shadow: none;
+    }
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.2);
+      transition: all 0.4s ease;
+      z-index: 0;
+    }
+    button:hover::before {
+      left: 100%;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    #message {
+      margin-top: 30px;
+      font-size: 1.5em;
+      color: #ff3385;
+      font-weight: bold;
+      text-align: center;
+      opacity: 0;
+      animation: fadeInMessage 1s ease forwards;
+    }
+    @keyframes fadeInMessage {
+      to { opacity: 1; }
+    }
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: floatUp 3s ease-in-out forwards;
+      pointer-events: none;
+      z-index: 10;
+      filter: drop-shadow(0 0 4px #ff69b4);
+    }
+    .heart::before, .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(45deg) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-200px) rotate(45deg) scale(0.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>💍 Will You Marry Me? 💖</h1>
+  <div id="typing"></div>
+  <div class="button-container">
+    <button id="yesBtn">Yes 😍</button>
+    <button id="noBtn">No 🙈</button>
+  </div>
+  <div id="message"></div>
+  <script>
+    const typingText = "I promise to love you, support you, and be by your side forever.";
+    let i = 0;
+    const typingEl = document.getElementById("typing");
+    function typeLine() {
+      if (i < typingText.length) {
+        typingEl.textContent += typingText.charAt(i);
+        i++;
+        setTimeout(typeLine, 50);
+      }
+    }
+    typeLine();
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const message = document.getElementById("message");
+    yesBtn.onclick = () => {
+      message.textContent = "YAY! 💕 I’m the happiest person alive!";
+      message.style.opacity = "1";
+      for (let i = 0; i < 50; i++) {
+        createHeart();
+      }
+    };
+    noBtn.onclick = () => {
+      message.textContent = "Oh no! Please think again... 🥺";
+      message.style.opacity = "1";
+      noBtn.style.display = "none";
+    };
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.top = window.innerHeight + "px";
+      heart.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 3000);
+    }
+  </script>
+</body>
+</html>

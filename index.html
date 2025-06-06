@@ -2,196 +2,168 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Will You Marry Me?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kounain, Will You Marry Me?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --pink: #ff4da6;
-      --light-pink: #ffe6f0;
-      --white: #ffffff;
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      --main-color: #ff4da6;
+      --background: #fff0f5;
+      --text-dark: #222;
     }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: radial-gradient(circle, var(--light-pink), var(--white));
-      overflow: hidden;
-      height: 100vh;
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #ffe6f0, #fff);
+      overflow-x: hidden;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
-      animation: fadeInBody 2s ease-in-out;
-    }
-    @keyframes fadeInBody {
-      from {opacity: 0;}
-      to {opacity: 1;}
+      height: 100vh;
+      position: relative;
     }
     h1 {
+      font-family: 'Pacifico', cursive;
       font-size: 3em;
-      color: var(--pink);
-      animation: dropIn 1s ease forwards;
-      transform: translateY(-50px);
-      opacity: 0;
-      text-shadow: 0 0 10px var(--pink);
+      color: var(--main-color);
+      margin-top: 40px;
+      animation: fadeSlideIn 2s ease-out forwards;
     }
-    @keyframes dropIn {
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-    #typing {
+    #messageBox {
       margin-top: 20px;
-      font-size: 1.4em;
-      color: #333;
-      height: 40px;
+      font-size: 1.2em;
+      color: var(--text-dark);
+      text-align: center;
+      min-height: 60px;
     }
     .button-container {
       margin-top: 30px;
       display: flex;
       gap: 20px;
-      animation: fadeInButtons 2s ease forwards;
-      opacity: 0;
-    }
-    @keyframes fadeInButtons {
-      to {
-        opacity: 1;
-      }
     }
     button {
-      padding: 15px 35px;
-      font-size: 1.3em;
-      border-radius: 50px;
+      padding: 15px 30px;
       border: none;
+      border-radius: 30px;
+      font-size: 1.2em;
       cursor: pointer;
       transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-      box-shadow: 0 0 8px rgba(255,77,166, 0.7);
-      background: var(--pink);
+    }
+    #yesBtn {
+      background-color: var(--main-color);
       color: white;
+      box-shadow: 0 0 10px rgba(255, 77, 166, 0.5);
     }
     #noBtn {
-      background: #ccc;
-      color: #444;
-      box-shadow: none;
+      background-color: #ccc;
+      color: #333;
     }
-    button::before {
-      content: '';
-      position: absolute;
+    #confetti {
+      position: fixed;
       top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: rgba(255,255,255,0.2);
-      transition: all 0.4s ease;
-      z-index: 0;
-    }
-    button:hover::before {
-      left: 100%;
-    }
-    button:hover {
-      transform: scale(1.05);
-    }
-    #message {
-      margin-top: 30px;
-      font-size: 1.5em;
-      color: #ff3385;
-      font-weight: bold;
-      text-align: center;
-      opacity: 0;
-      animation: fadeInMessage 1s ease forwards;
-    }
-    @keyframes fadeInMessage {
-      to { opacity: 1; }
-    }
-    .heart {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      transform: rotate(45deg);
-      animation: floatUp 3s ease-in-out forwards;
-      pointer-events: none;
-      z-index: 10;
-      filter: drop-shadow(0 0 4px #ff69b4);
-    }
-    .heart::before, .heart::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      border-radius: 50%;
-    }
-    .heart::before {
-      top: -10px;
       left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
     }
-    .heart::after {
-      left: -10px;
-      top: 0;
-    }
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) rotate(45deg) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-200px) rotate(45deg) scale(0.5);
-        opacity: 0;
-      }
+    @keyframes fadeSlideIn {
+      from {opacity: 0; transform: translateY(-50px);}
+      to {opacity: 1; transform: translateY(0);}
     }
   </style>
 </head>
 <body>
-  <h1>💍 Will You Marry Me? 💖</h1>
-  <div id="typing"></div>
+  <audio id="bgMusic" autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+  </audio>
+
+  <h1>Kounain, will you marry me? 💍</h1>
+  <div id="messageBox">I promise to love you endlessly, through every season of life.</div>
   <div class="button-container">
-    <button id="yesBtn">Yes 😍</button>
+    <button id="yesBtn">Yes 💕</button>
     <button id="noBtn">No 🙈</button>
   </div>
-  <div id="message"></div>
+  <canvas id="confetti"></canvas>
+
   <script>
-    const typingText = "I promise to love you, support you, and be by your side forever.";
-    let i = 0;
-    const typingEl = document.getElementById("typing");
-    function typeLine() {
-      if (i < typingText.length) {
-        typingEl.textContent += typingText.charAt(i);
-        i++;
-        setTimeout(typeLine, 50);
-      }
-    }
-    typeLine();
-    const yesBtn = document.getElementById("yesBtn");
+    const messages = [
+      "Are you sure? 😢",
+      "Please think again, Kounain...",
+      "I brought flowers too 🌸",
+      "And chocolates 🍫",
+      "Okay, last chance... will you? 🥺",
+      "You can't resist me forever 😘",
+      "Okay, I’ll wait. But I’m not going anywhere 💖"
+    ];
+
+    let clickCount = 0;
     const noBtn = document.getElementById("noBtn");
-    const message = document.getElementById("message");
+    const yesBtn = document.getElementById("yesBtn");
+    const msgBox = document.getElementById("messageBox");
+
     yesBtn.onclick = () => {
-      message.textContent = "YAY! 💕 I’m the happiest person alive!";
-      message.style.opacity = "1";
-      for (let i = 0; i < 50; i++) {
-        createHeart();
+      msgBox.innerText = "YAY!! You just made me the happiest person alive! 💕";
+      noBtn.style.display = "none";
+      launchConfetti();
+    };
+
+    noBtn.onclick = () => {
+      if (clickCount < messages.length) {
+        msgBox.innerText = messages[clickCount];
+        clickCount++;
+      } else {
+        noBtn.style.display = "none";
+        msgBox.innerText = "Alright... but I’ll keep loving you anyway ❤️";
       }
     };
-    noBtn.onclick = () => {
-      message.textContent = "Oh no! Please think again... 🥺";
-      message.style.opacity = "1";
-      noBtn.style.display = "none";
-    };
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.style.left = Math.random() * window.innerWidth + "px";
-      heart.style.top = window.innerHeight + "px";
-      heart.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 3000);
+
+    function launchConfetti() {
+      const confetti = document.getElementById("confetti");
+      const ctx = confetti.getContext("2d");
+      confetti.width = window.innerWidth;
+      confetti.height = window.innerHeight;
+      let pieces = [];
+
+      for (let i = 0; i < 100; i++) {
+        pieces.push({
+          x: Math.random() * confetti.width,
+          y: Math.random() * confetti.height,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * 50,
+          color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+          tilt: Math.random() * 10 - 10,
+          tiltAngleIncremental: Math.random() * 0.07 + .05,
+          tiltAngle: 0
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, confetti.width, confetti.height);
+        pieces.forEach(p => {
+          ctx.beginPath();
+          ctx.lineWidth = p.r / 2;
+          ctx.strokeStyle = p.color;
+          ctx.moveTo(p.x + p.tilt + p.r / 4, p.y);
+          ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 4);
+          ctx.stroke();
+        });
+        update();
+      }
+
+      function update() {
+        pieces.forEach(p => {
+          p.tiltAngle += p.tiltAngleIncremental;
+          p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+          p.x += Math.sin(p.d);
+          p.tilt = Math.sin(p.tiltAngle - (i / 3)) * 15;
+        });
+      }
+
+      setInterval(draw, 30);
     }
   </script>
 </body>
